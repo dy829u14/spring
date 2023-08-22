@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	
+	<!-- AccessDeniedHandler 인터페이스를 구현한 클래스를 빈으로 등록 -->
+	<bean id="customAccessDenied" class="org.green.security.CustomAccessDeniedHandler"/>
+	<!-- 로그인 성공시 인터페이스 구현 클래스 빈으로 등록 -->
+	<bean id="customLoginSuccess" class="org.green.security.CustomLoginSuccessHandler"/>
+	<!-- 패스워드 암호화 빈 등록 -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	<!-- CustomUserDetailsService 빈으로 등록 -->
+	<bean id="customUserDetailService" class="org.green.security.CustomUserDetailService"/>
+	
+	<security:http>
+		<security:intercept-url pattern="/sample/all" access="permitAll"/>
+		<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')"/>
+		<security:form-login login-page="/customLogin" />
+		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" />
+		<!-- 로그아웃시 세션삭제, 쿠키삭제 -->
+		<security:logout logout-url="/customLogout" invalidate-session="true" delete-cookies="remember-me, JSESSION_ID"/>
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="customUserDetailService">
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>

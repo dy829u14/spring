@@ -1,24 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@ include file="../includes/header.jsp" %>
+<style>
+.id_ok{
+color: green;
+display: none;
+}
+
+.id_already{
+color: red; 
+display: none;
+}
+#message1{
+color: green;
+}
+#message2{
+color: red;
+}
+</style>
 </head>
 <body>
+	<div id="wrap">
 	<h2>회원가입</h2>
 	<form action="/member/register" method="post" class="member_register">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<table>
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="mId"></td>
+				<td>
+					<input type="text" name="mId" id="mId" oninput = "checkId()">
+					<span id="msg">
+						<span class="id_ok">사용할 수 있습니다</span>
+						<span class="id_already">중복 아이디 입니다</span>
+					</span>
+				</td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="password" name="mPw"></td>
+				<td><input type="password" name="mPw" id="pass"></td>
+			</tr>
+			<tr>
+				<td>비밀번호 확인</td>
+				<td>
+					<input type="password" id="pass2">
+					<span id="message1"></span>				
+					<span id="message2"></span>				
+				</td>
 			</tr>
 			<tr>
 				<td>이름</td>
@@ -46,7 +73,7 @@
 				<td>주소</td>
 				<td>
 					<input type="text" id="sample6_postcode" placeholder="우편번호">
-					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="btn btn-outline-primary"><br>
 					<input type="text" id="sample6_address" placeholder="주소"><br>
 					<input type="text" id="sample6_detailAddress" placeholder="상세주소">
 					<input type="text" id="sample6_extraAddress" placeholder="참고항목">
@@ -56,14 +83,13 @@
 				<td>이메일</td>
 				<td><input type="text" name="mEmail"></td>
 			</tr>
-			<tr>
-				<td>
-					<button type="submit">가입</button>
-					<button type="reset">취소</button>
-				</td> 			
-			</tr>
 		</table>
+		<div id="button">
+			<button type="submit" class="btn btn-outline-primary">회원가입</button>
+			<button type="reset" class="btn btn-outline-primary">취소</button>
+		</div>
 	</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -85,11 +111,8 @@ $(document).ready(function(){
         var combinedValue = input1Value +" "+ input2Value +" "+ input3Value +" "+ input4Value;
         var mAddress = combinedValue.toString();
         var birthValue = birthY+"/"+birthM+"/"+birthD;
-        
-        var input1 = $('#sample6_postcode');
-        var locaNumber = input1.text();
-        var stringLoca = locaNumber.toString();
-        var location = stringLoca.substring(0,2);
+               
+        var mLocation = input1Value.substring(0,2);     
 		
 		//폼 선택 formObj 할당
 		let formObj = $("form.member_register");
@@ -113,11 +136,29 @@ $(document).ready(function(){
             type: 'hidden',
             id: 'mLocation',
             name: 'mLocation',
-            value: location
+            value: mLocation
         }).appendTo(formObj);
         
 		formObj.unbind('submit').submit();
 	});
+	
+	const passInput = $("#pass");
+    const pass2Input = $("#pass2");
+    const messageSpan1 = $("#message1");
+    const messageSpan2 = $("#message2");
+
+    pass2Input.keyup(function () {
+        const passValue = passInput.val();
+        const pass2Value = pass2Input.val();
+
+        if (passValue === pass2Value) {
+            messageSpan1.text("비밀번호가 일치합니다.");
+            messageSpan2.text("");
+        } else {
+            messageSpan2.text("비밀번호가 일치하지 않습니다.");
+            messageSpan1.text("");
+        }
+    });
 });
 	
     function sample6_execDaumPostcode() {
@@ -223,5 +264,35 @@ $(document).ready(function(){
         }
       }
     });
+    
+    function checkId(){
+    	
+        var mId = $('#mId').val(); //id값이 "id"인 입력란의 값을 저장
+        let csrfHeaderName = "${_csrf.headerName}";
+		let csrfTokenValue = "${_csrf.token}";
+        $.ajax({
+            url:'./idCheck', //Controller에서 요청 받을 주소
+            type:'post', //POST 방식으로 전달
+            beforeSend:function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+            data:{mId:mId},
+            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+                if(cnt == "0"){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                    $('.id_ok').css("display","inline-block"); 
+                    $('.id_already').css("display", "none");
+                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                    $('.id_already').css("display","inline-block");
+                    $('.id_ok').css("display", "none");
+                    console.log(cnt + "아이디를 다시 입력해주세요");                   
+                }
+            },
+            error:function(){
+                console.log("에러입니다");
+            }
+        });
+        };
+ 
 </script>
-</html>
+</div>
+<%@ include file="../includes/footer.jsp" %>

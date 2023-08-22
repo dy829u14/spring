@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.green.mapper.SellAttachMapper">
+	<insert id="insert">
+	insert into sell_attach (uuid, uploadpath, filename, filetype, sno)
+	values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{sno})
+	</insert>
+	<delete id="delete">
+	delete from sell_attach where uuid = #{uuid}
+	</delete>
+	<select id="findBySno" resultType="org.green.domain.SellAttachVO">
+	select * from sell_attach where sno = #{sno}
+	</select>
+	<delete id="deleteAll">
+	delete from sell_attach where sno = #{sno}
+	</delete>
+</mapper>

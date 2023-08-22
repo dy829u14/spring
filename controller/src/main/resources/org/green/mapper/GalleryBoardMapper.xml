@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.green.mapper.GalleryBoardMapper">
+	
+	<select id="getList" resultType="org.green.domain.GalleryBoardVO">
+		select * from tbl_gallery where gno > 0 order by gno desc
+	</select>
+	<insert id="insert">
+		insert into tbl_gallery(gno, title, writer, filename, uploadpath, fullname, category, content) 
+		values(seq_gallery.nextval, #{title}, #{writer}, #{fileName}, #{uploadPath}, #{fullname}, #{category}, #{content})
+	</insert>
+	<select id="read" resultType="org.green.domain.GalleryBoardVO">
+		select * from tbl_gallery where gno = #{gno}
+	</select>
+	<update id="update">
+		update tbl_gallery set title=#{title}, writer=#{writer}, filename=#{fileName}, uploadpath=#{uploadPath}, fullname=#{fullname}, category=#{category}, content=#{content} 
+		where gno=#{gno}
+	</update>
+	<delete id="delete">
+		delete from tbl_gallery where gno=#{gno}
+	</delete>
+	<select id="getListWithPaging" resultType="org.green.domain.GalleryBoardVO">
+		select * from (select Tb.*, rownum rNum from(select * from tbl_gallery
+		 order by gno desc) Tb)
+		  where rNum between (#{pageNum}-1)*#{amount}+1 and #{pageNum} * #{amount}
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from tbl_gallery
+	</select>
+	<select id="searchTest" resultType="org.green.domain.GalleryBoardVO">
+		select * from tbl_gallery
+		<!-- prefix=앞에 쿼리추가 / suffix=뒤에 쿼리추가 -->
+	</select>
+</mapper>

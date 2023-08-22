@@ -1,0 +1,25 @@
+@charset "UTF-8";
+#wrap {
+	width: 1200px;
+	margin: 100px auto;
+}
+#wrap form {
+	width: 100%;
+	max-width: 800px;
+	margin: 50px auto;
+}
+#button {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+#button button {
+	margin: 10px 5px;
+	padding: 5px 20px;
+}
+table {
+	margin: 0 auto;
+}
+table td {
+	padding: 10px;
+}

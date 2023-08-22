@@ -3,7 +3,29 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.green.mapper.MemberMapper">
 	<insert id="insert">
-		insert into member (mno, mid, mpw, mname, mbirth, mphone, maddress, mlocation, memail)
-		values(seq_mno.nextval, #{mId}, #{mPw}, #{mName}, #{mBirth}, #{mPhone}, #{mAddress}, #{mLocation}, #{mEmail})
+		insert into member (mid, mpw, mname, mbirth, mphone, maddress, mlocation, memail)
+		values(#{mId}, #{mPw}, #{mName}, #{mBirth}, #{mPhone}, #{mAddress}, #{mLocation}, #{mEmail})
 	</insert>
+	<select id="idCheck" parameterType="String" resultType="int">
+		SELECT COUNT(mId) FROM MEMBER WHERE mId= #{mId}
+	</select>
+	<resultMap type="org.green.domain.MemberVO" id="memberMap">
+		<id property="mId" column="mId"/>
+		<result property="mId" column="mId"/>
+		<result property="mPw" column="mPw"/>
+		<result property="mName" column="mName"/>
+		<result property="mPhone" column="mPhone"/>
+		<result property="mLocation" column="mLocation"/>
+		<collection property="authList" resultMap="authMap"></collection>
+	</resultMap>
+	<resultMap type="org.green.domain.AuthVO" id="authMap">
+		<result property="mId" column="mId"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+	<select id="read" resultMap="memberMap">
+		select mem.mId, mPw, mName, mPhone, mLocation, auth
+		from member mem left outer join member_auth auth
+		on mem.mId = auth.mId
+		where mem.mId = #{mId}
+	</select>
 </mapper>

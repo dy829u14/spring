@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.green.mapper.BoardMapper">
+	<sql id="criteria">
+		<!-- prefix=앞에 쿼리추가 / suffix=뒤에 쿼리추가 -->
+		<trim prefix="where(" suffix=")">
+			<if test="typeArr != null">
+			<foreach item="type" collection="typeArr" separator="or">
+				<choose>
+					<when test="type == 'T'.toString()">
+				 		title like '%'||#{keyword}||'%'
+				 	</when>
+					<when test="type == 'C'.toString()">
+				 		content like '%'||#{keyword}||'%'
+				 	</when>
+					<when test="type == 'W'.toString()">
+				 		writer like '%'||#{keyword}||'%'
+				 	</when>
+			 	</choose>
+			</foreach>
+			</if>
+		</trim>
+	</sql>
+	<!-- id는 추상메소드 이름과 똑같이, mapper namespace는 패키지경로, xml 쿼리문 끝에 세미콜론(;) 쓰면 안 됨 -->
+	<insert id="insert">
+		insert into tbl_board(bno, title, content, writer)
+		values(seq_board.nextval, #{title}, #{content}, #{writer})
+	</insert>
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="bno" order="AFTER" resultType="long">
+			select seq_board.currval from dual
+		</selectKey>
+		insert into tbl_board(bno, title, content, writer)
+		values(seq_board.nextval, #{title}, #{content}, #{writer})
+	</insert>
+	<select id="read" resultType="org.green.domain.BoardVO">
+		select * from tbl_board where bno = #{bno}
+	</select>
+	<delete id="delete">
+		delete from tbl_board where bno = #{bno}
+	</delete>
+	<update id="update">
+		update tbl_board set title=#{title}, content=#{content}, writer=#{writer} where bno=#{bno}
+	</update>
+	<select id="getListWithPaging" resultType="org.green.domain.BoardVO">
+		select * from (select Tb.*, rownum rNum from(select * from tbl_board
+			<include refid="criteria"></include>
+		 order by bno desc) Tb)
+		  where rNum between (#{pageNum}-1)*#{amount}+1 and #{pageNum} * #{amount}
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from tbl_board <include refid="criteria"></include>
+	</select>
+	<select id="searchTest" resultType="org.green.domain.BoardVO">
+		select * from tbl_board
+		<!-- prefix=앞에 쿼리추가 / suffix=뒤에 쿼리추가 -->
+		<include refid="criteria"></include>
+	</select>
+</mapper>

@@ -8,5 +8,7 @@
 </head>
 <body>
 	<h2>메인 페이지</h2>
+	<p><a href="/member/register">회원가입</a></p>
+	<p><a href="/customLogin">로그인</a></p>
 </body>
 </html>

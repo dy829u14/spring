@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.green.mapper.SellMapper">
+	<sql id="criteria">
+		<!-- prefix=앞에 쿼리추가 / suffix=뒤에 쿼리추가 -->
+		<trim prefix="where(" suffix=")">
+			<if test="typeArr != null">
+			<foreach item="type" collection="typeArr" separator="or">
+				<choose>
+					<when test="type == 'T'.toString()">
+				 		sTitle like '%'||#{keyword}||'%'
+				 	</when>
+					<when test="type == 'C'.toString()">
+				 		sContent like '%'||#{keyword}||'%'
+				 	</when>
+					<when test="type == 'W'.toString()">
+				 		mId like '%'||#{keyword}||'%'
+				 	</when>
+			 	</choose>
+			</foreach>
+			</if>
+		</trim>
+	</sql>
+	<select id="getListWithPaging" resultType="org.green.domain.SellVO">
+		select * from (select Tb.*, rownum rNum from(select * from sellboard
+			<include refid="criteria"></include>
+		 order by sno desc) Tb)
+		  where rNum between (#{pageNum}-1)*#{amount}+1 and #{pageNum} * #{amount}
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from sellboard <include refid="criteria"></include>
+	</select>
+	<select id="searchTest" resultType="org.green.domain.SellVO">
+		select * from sellboard
+		<!-- prefix=앞에 쿼리추가 / suffix=뒤에 쿼리추가 -->
+		<include refid="criteria"></include>
+	</select>
+	<insert id="insert">
+		insert into sellboard (sno, sTitle, sPrice, sContent, sCate, mId)
+		values(seq_sell_num.nextval, #{sTitle}, #{sPrice}, #{sContent}, #{sCate}, #{mId})
+	</insert>
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="sno" order="AFTER" resultType="long">
+			select seq_sell_num.currval from dual
+		</selectKey>
+		insert into sellboard(sno, sTitle, sPrice, sContent, sCate, mId)
+		values(seq_sell_num.nextval,  #{sTitle}, #{sPrice}, #{sContent}, #{sCate}, #{mId})
+	</insert>
+	<select id="read" resultType="org.green.domain.SellVO">
+		select * from sellboard where sno = #{sno}
+	</select>
+	<delete id="delete">
+		delete from sellboard where sno = #{sno}
+	</delete>
+</mapper>
