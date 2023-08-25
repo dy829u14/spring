@@ -2,13 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ include file="../includes/header.jsp" %>
+<div id="wrap">
 	<h1>리스트페이지</h1>
 	<table>
 		<tr>
@@ -61,5 +56,5 @@
 	</div>
 	<!-- 페이징 추가 끝 -->
 	<p><button onclick="location.href='/sell/register'">게시글등록</button></p>
-</body>
-</html>
+</div>
+<%@ include file="../includes/footer.jsp" %>

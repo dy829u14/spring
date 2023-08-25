@@ -1,12 +1,16 @@
 @charset "UTF-8";
+a {text-decoration: none; color:black;}
+li {list-style: none;}
+img {vertical-align: middle;}
 #wrap {
 	width: 1200px;
 	margin: 100px auto;
 }
-#wrap form {
-	width: 100%;
-	max-width: 800px;
+.inner {
+	border-top: 1px solid #ccc;
+	width: 100%;	
 	margin: 50px auto;
+	padding-top: 50px;
 }
 #button {
 	display: flex;
@@ -19,7 +23,29 @@
 }
 table {
 	margin: 0 auto;
+	max-width: 800px;
 }
 table td {
 	padding: 10px;
+}
+#f1 {
+	display: flex;
+	justify-content: space-around;
+	padding-top: 30px;
+}
+#f2 {
+	display: flex;
+	justify-content: space-around;
+	border-top: 1px solid #ccc;
+	padding: 20px 0;
+}
+#topmenu {
+	display: flex;
+	justify-content: space-around;
+}
+#topmenu div {
+	display: flex;
+}
+#topmenu div p {
+	padding: 5px 10px;
 }

@@ -3,13 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../includes/header.jsp" %>    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<div id="wrap">
 	<h2>등록 페이지</h2>
 	<form class="user" method="post" action="/sell/register">
 	   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
@@ -54,6 +48,7 @@
  	<div>
        
     </div>
+</div>
 <script>
 		$(document).ready(function(){
 			//input태그중 type이 file요소 선택
@@ -151,5 +146,4 @@
 		})
 			
 		</script>
-</body>
-</html>
+<%@ include file="../includes/footer.jsp" %>  

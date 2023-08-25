@@ -22,6 +22,7 @@ color: red;
 <body>
 	<div id="wrap">
 	<h2>회원가입</h2>
+	<div class="inner">
 	<form action="/member/register" method="post" class="member_register">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<table>
@@ -49,7 +50,7 @@ color: red;
 			</tr>
 			<tr>
 				<td>이름</td>
-				<td><input type="text" name="mName"></td>
+				<td><input type="text" name="mName" id="mName"></td>
 			</tr>
 			<tr>
 				<td>생년월일</td>
@@ -67,7 +68,7 @@ color: red;
 			</tr>
 			<tr>
 				<td>전화번호</td>
-				<td><input type="text" name="mPhone" placeholder="' - ' 제외한 숫자만 입력"></td>
+				<td><input type="text" name="mPhone" id="mPhone" placeholder="' - ' 제외한 숫자만 입력"></td>
 			</tr>
 			<tr class="address">
 				<td>주소</td>
@@ -81,7 +82,7 @@ color: red;
 			</tr>
 			<tr>
 				<td>이메일</td>
-				<td><input type="text" name="mEmail"></td>
+				<td><input type="text" name="mEmail" id="mEmail"></td>
 			</tr>
 		</table>
 		<div id="button">
@@ -89,6 +90,8 @@ color: red;
 			<button type="reset" class="btn btn-outline-primary">취소</button>
 		</div>
 	</form>
+	</div>
+	</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -112,7 +115,46 @@ $(document).ready(function(){
         var mAddress = combinedValue.toString();
         var birthValue = birthY+"/"+birthM+"/"+birthD;
                
-        var mLocation = input1Value.substring(0,2);     
+        var mLocation = input1Value.substring(0,2);  
+        
+        let id = $('#mId').val();
+     	let pass1 = $('#pass').val();
+     	let pass2 = $('#pass2').val();
+     	let name = $('#mName').val();
+     	let phone = $('#mPhone').val();
+     	let email = $('#mEmail').val();
+
+        // 아이디변수에 값이 할당되어있지 않을 때 = 사용자가 값을 입력 안했을 때
+        if(!id){					
+         alert('아이디를 입력하세요');	// 아이디 입력해 달라는 경고창 호출
+         $('#mId').focus();		// id input 박스에 포커스 강제
+         return false;				// 입력중단
+        }
+        if(!pass1){					
+            alert('비밀번호를 입력하세요');	
+            $('#pass').focus();		
+            return false;			
+           }
+        if(!pass2){					
+            alert('비밀번호를 확인하세요');	
+            $('#pass2').focus();		
+            return false;				
+           }
+        if(!name){					
+            alert('이름을 입력하세요');	
+            $('#mName').focus();		
+            return false;				
+           }
+        if(!phone){					
+            alert('전화번호 입력하세요');	
+            $('#mPhone').focus();		
+            return false;				
+           }
+        if(!email){					
+            alert('이메일을 입력하세요');	
+            $('#mEmail').focus();		
+            return false;				
+           }
 		
 		//폼 선택 formObj 할당
 		let formObj = $("form.member_register");
@@ -159,6 +201,8 @@ $(document).ready(function(){
             messageSpan1.text("");
         }
     });
+    
+    
 });
 	
     function sample6_execDaumPostcode() {

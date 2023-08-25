@@ -16,11 +16,13 @@
 		color:#fff;
 	}
 </style>
+<div id="wrap">
 <h2>상세조회 페이지</h2>
-	<p><c:out value="${board.sno }"></c:out></p>
-	<p><c:out value="${board.STitle }"></c:out></p>
-	<p><c:out value="${board.SContent }"></c:out></p>
-	<p><c:out value="${board.MId }"></c:out></p>
+	<div class="inner">
+	<p>번호 : <c:out value="${board.sno }"></c:out></p>
+	<p>제목 : <c:out value="${board.STitle }"></c:out></p>
+	<p>내용 : <c:out value="${board.SContent }"></c:out></p>
+	<p>작성자 : <c:out value="${board.MId }"></c:out></p>
 	<div class="uploadResult">
 		<ul></ul>
 	</div>
@@ -42,12 +44,12 @@
 		</c:if>
 		</sec:authorize>
 	</p>
-	</div>
-</div>
 <div class="bigPictureWrapper">
 	<div class="bigPicture">
 		
 	</div>
+</div>
+</div>
 </div>
 <script>
 $(document).ready(function(){
