@@ -28,10 +28,10 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 	    });
 	    log.warn("로그인 이름 : " + roleNames);
 	    if(roleNames.contains("member")) {
-	    	response.sendRedirect("/sell/list");
+	    	response.sendRedirect("/main");
 	    	return;
 	    }
-	    response.sendRedirect("/");
+	    response.sendRedirect("/main");
 		
 	}
 	

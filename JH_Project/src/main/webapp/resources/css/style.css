@@ -49,3 +49,6 @@ table td {
 #topmenu div p {
 	padding: 5px 10px;
 }
+.pagination li {
+	margin-right: 10px;
+}

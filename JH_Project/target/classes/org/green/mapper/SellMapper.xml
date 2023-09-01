@@ -53,4 +53,7 @@
 	<delete id="delete">
 		delete from sellboard where sno = #{sno}
 	</delete>
+	<update id="update">
+		update sellboard set sTitle=#{sTitle}, sContent=#{sContent} where sno=#{sno}
+	</update>
 </mapper>

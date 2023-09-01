@@ -24,7 +24,14 @@
 	<p>내용 : <c:out value="${board.SContent }"></c:out></p>
 	<p>작성자 : <c:out value="${board.MId }"></c:out></p>
 	<div class="uploadResult">
-		<ul></ul>
+		<div></div>
+	</div>
+	<div class="slider single-item slick-initialized slick-slider slick-dotted">
+		<div class="slick-list draggable">
+			<div class="slick-track">
+			
+			</div>
+		</div>
 	</div>
 	
 	<p>
@@ -39,7 +46,7 @@
 		<form method="post" action="/sell/remove">
 			<input type="hidden" value="${board.sno }" name="sno"/>
 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-			<button type="submit">삭제</button>
+			<button type="submit" onclick="del();">삭제</button>
 		</form>
 		</c:if>
 		</sec:authorize>
@@ -58,17 +65,16 @@ $(document).ready(function(){
 		let sno = '<c:out value="${board.sno}"/>';
 		$.getJSON("/sell/getAttachList",{sno:sno},
 			function(arr){
-				console.log(arr);
 				//이미지 나타내기
 				let str = "";
 				$(arr).each(function(i, attach){
 					let fileCallpath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
-					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"'";
+					str += "<div class='slick-slide' data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"'";
 					str += "data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"'>";
-					str += "<div><img src='/upload/display?fileName="+fileCallpath+"'/>";
-					str += "</div></li>";
+					str += "<img src='/upload/display?fileName="+fileCallpath+"'/>";
+					str += "</div>";
 				})
-				$(".uploadResult ul").html(str);
+				$(".slick-track").html(str);
 			})//end getJSON
 	})();
 	//li를 클릭하면 bigPictureWrapper나타나게 하고
@@ -86,6 +92,15 @@ $(document).ready(function(){
 	$(".bigPictureWrapper").on("click","span", function(e){
 		$(".bigPictureWrapper").css("display","none");
 	})
-})
+
+	$('.single-item').slick();
+});
+function del(sno) {
+		var chk = confirm("정말 삭제하시겠습니까?");
+		if (chk) {
+			location.href='delete?sno='+sno;
+		}
+	}
+
 </script>
 <%@ include file="../includes/footer.jsp" %>

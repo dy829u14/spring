@@ -7377,7 +7377,7 @@ textarea.form-control-lg {
 }
 
 .justify-content-center {
-  justify-content: center !important;
+  justify-content: flex-start; !important;
 }
 
 .justify-content-between {

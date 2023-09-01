@@ -3,13 +3,11 @@
 <%@ include file="./includes/header.jsp" %>
 	<div id="wrap">
 	<h2>로그인 페이지</h2>
-	<p><c:out value="${error }"/></p>
-	<p><c:out value="${logout }"/></p>
 	<form action="/login" method="post">
 		<p><input type="text" name="username"/></p>
 		<p><input type="password" name="password"/></p>
-		<p><input type="checkbox" name="remember-me"/>Remember Me</p>		
 		<p><input type="submit" value="로그인"/></p>
+		<input type="hidden" name="remember-me" value="true"/>
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 	</form>
 	</div>

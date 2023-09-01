@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <body>
-	<Footer class="navbar-light" style="background-color: #e3f2fd;">
+	<Footer class=" navbar-expand-lg navbar-light bg-light">
 		<div id="f1">
 			<div>
-				<h4>JOONGGO MARKET</h4>
+				<h4>J-MARKET</h4>
 				<p>
 					(주) 중고마켓<br/>
 					대표자 : 임종하<br/>

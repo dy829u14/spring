@@ -15,7 +15,7 @@ public class Criteria {
 	
 	//생성자를 통해서 기본값 1페이지에 10개의 게시물 출력
 	public Criteria() {
-		this(1,10);
+		this(1,12);
 	}
 	
 	public Criteria(int pageNum, int amount) {

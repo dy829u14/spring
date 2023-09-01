@@ -28,9 +28,9 @@
 	<security:http>
 		<security:intercept-url pattern="/member/register" access="permitAll"/>		
 		<security:access-denied-handler ref="customAccessDenied"/>
-		<security:form-login login-page="/customLogin" />
+		<security:form-login login-page="/customLogin"  />
 		<security:remember-me data-source-ref="dataSource"
-		token-validity-seconds="604800"/>
+		token-validity-seconds="1800"/>
 		<!-- 로그아웃시 세션 삭제 쿠키도 삭제 logout-url 로그아웃 경로요청 -->
 		<security:logout logout-url="/customLogout"
 		invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"/>

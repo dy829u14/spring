@@ -18,8 +18,7 @@
 	             <input type="text" placeholder="제목" name="sTitle" required>
 	         </div>
 	         <div>
-	             <input type="text"
-	                 placeholder="글쓴이" value='<sec:authentication property="principal.username"/>' name="mId" required/>
+	             <input type="hidden" value='<sec:authentication property="principal.username"/>' name="mId"/>
 	         </div>
 	       
 	         <div>
