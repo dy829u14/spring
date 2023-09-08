@@ -27,9 +27,9 @@
     
     <link href="${path}/resources/css/styles.css" rel="stylesheet" >
     <link href="${path}/resources/css/style.css" rel="stylesheet" >
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
    	 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 </head>
 <body></body>
@@ -46,7 +46,7 @@
 						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 						<p id="logout"><button>로그아웃</button></p>
 					</form>
-					<p><a href="/member/register">회원정보</a></p>
+					<p><a href="/member/get">회원정보</a></p>
 				</sec:authorize>
 								
 			</div>
@@ -58,8 +58,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/sell/list">Product</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="#!">자유게시판</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/sell/list">Product</a></li>                        
                         <li class="nav-item"><a class="nav-link active" href="#!">Q&A</a></li>                     
                     </ul>               
                     <!-- 검색추가하기 -->

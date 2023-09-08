@@ -35,4 +35,11 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println("cnt: " + cnt);
 		return cnt;
 	}
+
+	@Override
+	public MemberVO get(String mid) {
+		return mapper.read(mid);
+	}
+	
+	
 }

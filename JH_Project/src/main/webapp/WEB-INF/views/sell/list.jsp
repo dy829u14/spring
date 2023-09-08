@@ -36,10 +36,6 @@
                          <div><c:out value="${board.SPrice }"></c:out>원</div>
                      </div>
                  </div>
-                 <!-- Product actions-->
-                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                     <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                 </div>
              </div>                        
          </div>
          </c:forEach>
@@ -49,14 +45,14 @@
 	
 	<div class="bot">
 	<!-- 검색추가하기 -->
-	<form method="get" action="/sell/list">
+	<form method="get" action="/sell/list" class="d-flex">
 		<select name="type">
 			<option value="T" <c:out value="${pageMaker.cri.type == 'T' ? 'selected' : ''}"/>>제목</option>
 			<option value="W" <c:out value="${pageMaker.cri.type == 'W' ? 'selected' : ''}"/>>글쓴이</option>
 			<option value="C" <c:out value="${pageMaker.cri.type == 'C' ? 'selected' : ''}"/>>내용</option>
 		</select>
 		<input type="text" name="keyword" value="${pageMaker.cri.keyword }">
-		<input type="submit" value="검색">
+		<input class="btn btn-outline-dark" type="submit" value="검색">
 	</form> 
 	<!-- 페이징 추가 -->
 	<div class="pull-right">
@@ -80,7 +76,7 @@
 	</div>
 	<!-- 페이징 추가 끝 -->
 	<sec:authorize access="isAuthenticated()">
-	<p><button onclick="location.href='/sell/register'">게시글등록</button></p>
+	<p><button class="btn btn-outline-dark flex-shrink-0" onclick="location.href='/sell/register'">게시글등록</button></p>
 	</sec:authorize>
 	</div>
 </div>
@@ -99,11 +95,11 @@ $(document).ready(function(){
 					let attach = arr[0]; // 첫 번째 첨부 파일만 선택
 					if (attach) {
 						let fileCallpath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
-						let str = "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"'";
+						let str = "<div data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"'";
 						str += "data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"'>";
 						str += "<a href='/sell/get?sno=" + sno[i] +"'>";
-						str += "<img class='card-img-top' src='/upload/display?fileName="+fileCallpath+"'/>";
-						str += "</a></li>";
+						str += "<img class='object-cover card-img-top' src='/upload/display?fileName="+fileCallpath+"'/>";
+						str += "</a></div>";
 						$(".card").eq(i).prepend(str);
 					}
 				})

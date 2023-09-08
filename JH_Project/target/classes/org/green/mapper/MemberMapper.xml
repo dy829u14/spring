@@ -6,6 +6,10 @@
 		insert into member (mid, mpw, mname, mbirth, mphone, maddress, mlocation, memail)
 		values(#{mId}, #{mPw}, #{mName}, #{mBirth}, #{mPhone}, #{mAddress}, #{mLocation}, #{mEmail})
 	</insert>
+	<update id="update">
+		update member set mpw=#{mPw}, mPhone=#{mPhone}, maddress=#{mAddress}, mlocation=#{mLocation}, memail=#{mEmail} 
+		where mId=#{mId}
+	</update>
 	<select id="idCheck" parameterType="String" resultType="int">
 		SELECT COUNT(mId) FROM MEMBER WHERE mId= #{mId}
 	</select>
@@ -23,9 +27,9 @@
 		<result property="auth" column="auth"/>
 	</resultMap>
 	<select id="read" resultMap="memberMap">
-		select mem.mId, mPw, mName, mPhone, mLocation, auth
+		select mem.mId, mPw, mName, mPhone, mEmail, mAddress, mLocation, auth
 		from member mem left outer join member_auth auth
 		on mem.mId = auth.mId
 		where mem.mId = #{mId}
-	</select>
+	</select>		
 </mapper>

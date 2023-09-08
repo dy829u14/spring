@@ -3,7 +3,7 @@ a {text-decoration: none; color:black;}
 li {list-style: none;}
 img {vertical-align: middle;}
 #wrap {
-	width: 1200px;
+	width: 1600px;
 	margin: 100px auto;
 }
 .inner {
@@ -51,4 +51,16 @@ table td {
 }
 .pagination li {
 	margin-right: 10px;
+}
+.object-cover {
+    -o-object-fit: cover;
+    object-fit: cover;
+    width: 100%;
+}
+.card-img-get {
+	height: 600px;
+}
+.btnAlign {
+	display: flex;
+	justify-content: center
 }

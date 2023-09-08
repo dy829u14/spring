@@ -11,7 +11,9 @@
 	     	<div>
 	             <select name="sCate">
 	             	<option value="패션/잡화">패션/잡화</option>
-	             	<option value="생활/건강">생활/건강</option>	             		             	
+	             	<option value="생활/건강">생활/건강</option>             		             	
+	             	<option value="가전제품">가전제품</option>       		             	
+	             	<option value="가구/인테리어">가구/인테리어</option>       		             	
 	             </select>
 	         </div>
 	         <div>

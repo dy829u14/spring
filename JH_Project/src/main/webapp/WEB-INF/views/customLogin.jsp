@@ -6,7 +6,7 @@
 	<form action="/login" method="post">
 		<p><input type="text" name="username"/></p>
 		<p><input type="password" name="password"/></p>
-		<p><input type="submit" value="로그인"/></p>
+		<p><input class="btn btn-outline-dark" type="submit" value="로그인"/></p>
 		<input type="hidden" name="remember-me" value="true"/>
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 	</form>

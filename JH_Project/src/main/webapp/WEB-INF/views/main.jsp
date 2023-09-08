@@ -8,8 +8,7 @@
 </style>
 	 <!-- Section-->	 
         <section class="py-5">
-        	<div class="inner">
-				
+        	<div class="inner">				
 			</div>
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -28,10 +27,6 @@
                                     <!-- Product price-->
                                     <div><c:out value="${board.SPrice }"></c:out>원</div>
                                 </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
                             </div>
                         </div>                        
                     </div>
@@ -53,11 +48,11 @@ $(document).ready(function(){
 					let attach = arr[0]; // 첫 번째 첨부 파일만 선택
 					if (attach) {
 						let fileCallpath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
-						let str = "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"'";
+						let str = "<div data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"'";
 						str += "data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"'>";
 						str += "<a href='/sell/get?sno=" + sno[i] +"'>";
-						str += "<img class='card-img-top' src='/upload/display?fileName="+fileCallpath+"'/>";
-						str += "</a></li>";
+						str += "<img class='object-cover card-img-top' src='/upload/display?fileName="+fileCallpath+"'/>";
+						str += "</a></div>";
 						$(".card").eq(i).prepend(str);
 					}
 				})

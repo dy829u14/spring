@@ -6,6 +6,8 @@ import org.green.domain.MemberVO;
 public interface MemberService {
 	public void register(MemberVO mvo, AuthVO avo);
 	
+	public MemberVO get(String mid);
+	
 	// 아이디 중복체크
 	public int idCheck(String id);
 }
