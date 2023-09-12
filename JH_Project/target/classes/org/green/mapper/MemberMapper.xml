@@ -20,6 +20,9 @@
 		<result property="mName" column="mName"/>
 		<result property="mPhone" column="mPhone"/>
 		<result property="mLocation" column="mLocation"/>
+		<result property="mBirth" column="mBirth"/>
+		<result property="mAddress" column="mAddress"/>
+		<result property="mEmail" column="mEmail"/>
 		<collection property="authList" resultMap="authMap"></collection>
 	</resultMap>
 	<resultMap type="org.green.domain.AuthVO" id="authMap">
@@ -27,7 +30,7 @@
 		<result property="auth" column="auth"/>
 	</resultMap>
 	<select id="read" resultMap="memberMap">
-		select mem.mId, mPw, mName, mPhone, mEmail, mAddress, mLocation, auth
+		select mem.mId, mPw, mName, mPhone, mBirth, mEmail, mAddress, mLocation, auth
 		from member mem left outer join member_auth auth
 		on mem.mId = auth.mId
 		where mem.mId = #{mId}

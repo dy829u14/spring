@@ -55,6 +55,8 @@ public class MemberController {
 
 	    // service.get(username)를 호출하여 사용자 정보를 가져오고 모델에 추가
 	    MemberVO member = service.get(mId);
+	    log.info("******************************************");
+	    log.info(member);
 	    model.addAttribute("mem", member);
 	}
 	
